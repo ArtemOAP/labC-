@@ -11,7 +11,7 @@ void main()
 	{
 		String **str = new String*[countString];
 
-		while (true)
+		while (true)// реализация меню
 		{
 			cin.clear();
 			cin.sync();
@@ -22,7 +22,7 @@ void main()
 			if(position=='0') break;
 			if(position=='1') 
 			{
-				while (position!='0')
+				while (position!='0')//подменю
 				{	
 					cout << setw(40) <<  "--Count string default-------=";
 					cin>>CountStringdefault;
@@ -213,13 +213,13 @@ void main()
 							cin>>item;
 							cout<<endl;
 							item=(int)item;
-							if((item>=0) && (item<=(String::GetCount())))
+							if((item>=0) && (item< (String::GetCount())))
 							{
 								String **temp=new String*[String::GetCount()-1];
 								count=String::GetCount();
 								for(int i=0; i<item;i++)
 									temp[i]=str[i];
-								for(int i=item; i<count;i++)
+								for(int i=item; i<count-1;i++)
 									temp[i]=str[i+1];
 								delete  str[item];
 								delete [] str;
@@ -255,7 +255,7 @@ void main()
 
 		count=String::GetCount();
 
-		if(count>0)
+		if(count>0)//высвобождение занимаемой памяти
 		{
 			for(int i=0; i<count; i++)
 				delete  str[i];
