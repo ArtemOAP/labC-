@@ -1,3 +1,4 @@
+//---------------string_method.cpp-----------------
 #include "string.h"
 int String::CountString=0;
 int String::CountStringDefault=0;
@@ -37,6 +38,7 @@ String::~String()
 	CountString--;
 	//delete  [] str;
 	//delete [] temp;
+
 }
 
 void String::Print()
@@ -49,6 +51,7 @@ void String::Print()
 void String::SetString(const char *strIn)
 {
 	delete [] str;
+	str=NULL;
 	this->lengthString = strlen(strIn);
 	this->str = new char[lengthString+1];
 	strcpy(str,strIn);
@@ -62,7 +65,7 @@ void String::SetlengthString(int length)
 	{
 		lengthString= length;
 		this->temp = new char[lengthString];
-		for(int i=0; i< lengthString;i++)
+		for(int i=0; i< lengthString;i++)//реализуется копирование части строки
 		{
 			temp[i]=str[i];
 		}
@@ -91,3 +94,4 @@ int String:: GetCountStringClone()
 {
 	return CountStringClone;
 }
+//-------------------------------------------------------

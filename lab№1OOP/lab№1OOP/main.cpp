@@ -2,15 +2,13 @@
 #include <iomanip>
 void main()
 {
-	char strInp[255],position='9'; 
+	char strInp[255],position='9'; //строка дл€ ввода и переменна€ дл€ перемещени€ по меню
 	int countString=0,CountStringdefault=0, item=0; 
 	int CountStringMy=0, CountStringClone=0, lenghtString=0,k,count=0;
-	//String **str=new  String *[5];
 	cout << setw(40) <<  "1-------Count all String----------" << endl;
 	cin>>countString;
 	if(countString>0)
 	{
-
 		String **str = new String*[countString];
 
 		while (true)
@@ -45,7 +43,7 @@ void main()
 						for(int i=k;i<count;i++)
 						{
 							cout <<"String ["<<i<<"]"<<endl;
-								str[i] = new String();
+							str[i] = new String();
 						}
 						count=0;
 						CountStringdefault=0;
@@ -79,7 +77,6 @@ void main()
 						else
 						{
 							k=0;
-							//count+=1;
 						} 
 
 						for(int i=k;i<count;i++)
@@ -136,7 +133,6 @@ void main()
 						cout << setw(40) <<  "--------------OK! clone! ="; 
 						cout << (String:: GetCountStringClone());
 						cout<<endl;
-						//cin.get();
 					}
 					cin.clear();
 					cin.get();
@@ -167,7 +163,6 @@ void main()
 						cout << setw(40) <<  "5------Select All String-----------"<< endl;
 						cout << setw(40) <<  "6-------------(0)exit--------------" << endl;
 						position=cin.get();
-
 
 						switch (position)
 						{
