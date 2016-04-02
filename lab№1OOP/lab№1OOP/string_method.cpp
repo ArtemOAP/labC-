@@ -10,8 +10,9 @@ String::String()
 	CountString++;
 	CountStringDefault++;
 	this->lengthString = strlen("String default");
-	this->str = new char[lengthString+1];
-	strcpy(str,"String default");
+	this->strin = new char[lengthString+1];
+	strcpy(strin,"String default");
+	tempStr=NULL;
 }
 
 String::String(const char *s)
@@ -19,8 +20,9 @@ String::String(const char *s)
 	CountString++;
 	CountStringMy++;
 	this->lengthString = strlen(s);
-	this->str = new char[lengthString+1];
-	strcpy(str,s);
+	this->strin = new char[lengthString+1];
+	strcpy(strin,s);
+	tempStr=NULL;
 }
 
 String::String(const String &t)
@@ -28,52 +30,75 @@ String::String(const String &t)
 	CountString++;
 	CountStringClone++;
 	lengthString=t.lengthString;
-	this->str = new char[lengthString];
-	strcpy(str,t.str);
+	this->strin = new char[lengthString+1];
+	strcpy(strin,t.strin);
+	tempStr=NULL;
 
 }
 
 String::~String()
 {
 	CountString--;
-	//delete  [] str;
-	//delete [] temp;
+	delete  [] strin;
+	
 
 }
 
 void String::Print()
 {
-	cout << str << endl;
+	cout << strin << endl;
 	cout << lengthString << endl;
 
 }
 
 void String::SetString(const char *strIn)
 {
-	delete [] str;
-	str=NULL;
+	delete [] strin;
 	this->lengthString = strlen(strIn);
-	this->str = new char[lengthString+1];
-	strcpy(str,strIn);
+	this->strin = new char[lengthString+1];
+	strcpy(strin,strIn);
+	
 }
 
 
 void String::SetlengthString(int length)
-{
+{ 
+	int len=strlen(strin);
 
-	if(length>0 && length<lengthString)
+	if(length>0 && length<len)
 	{
 		lengthString= length;
-		this->temp = new char[lengthString];
+		this->tempStr = new char[lengthString+1];
+
 		for(int i=0; i< lengthString;i++)//реализуется копирование части строки
 		{
-			temp[i]=str[i];
+			tempStr[i]=strin[i];
 		}
-		temp[lengthString]='\0';
-		this->str = new char[lengthString];
-		strcpy(str,temp);
-
+		tempStr[lengthString]='\0';
+		delete  [] strin;
+		strin=NULL;
+		strin=tempStr;
+		tempStr=NULL;
 	}	
+	if(length==len+1)
+	{
+		lengthString= length;
+		this->tempStr = new char[lengthString+1];
+
+		for(int i=0; i< len;i++)//реализуется копирование части строки
+		{
+			tempStr[i]=strin[i];
+		}
+		tempStr[len]='*';
+		tempStr[lengthString]='\0';
+		delete  [] strin;
+		strin=NULL;
+		strin=tempStr;
+		tempStr=NULL;
+	}
+
+
+
 }
 
 int  String::GetCount()
@@ -94,4 +119,101 @@ int String:: GetCountStringClone()
 {
 	return CountStringClone;
 }
-//-------------------------------------------------------
+
+char* String:: GetString(){
+	return strin;
+}
+
+int String:: GetLenght(){
+	return lengthString;
+}
+
+//-строки равны если равны их длины------------------
+bool String::operator == (String &strIn)
+{
+	if(lengthString == strIn.lengthString )
+		return true;
+	else
+		return false;
+}
+//--------------------------------------------------
+bool String::operator != (String &strIn)
+{
+	return !( *this == strIn ); 
+}
+//------------------------------------------------------
+bool String::operator < (String &strIn)
+{
+	return ((lengthString < strIn.lengthString) && (strlen(strin) <strlen(strIn.strin))); 
+}
+bool String::operator > (String &strIn)
+{
+	return !( (*this < strIn) || ( *this == strIn ) ); 
+
+}
+String String ::operator + (String &strIn)
+{
+	String tmp;
+	tmp.lengthString = lengthString + strIn.lengthString;
+	tmp.strin=new char [tmp.lengthString+1];
+	for(int i=0; strin[i]!='\0';i++)
+		tmp.strin[i] =strin[i];
+	for(int i=0; strIn.strin[i]!='\0';i++)
+		tmp.strin[lengthString + i] =strIn.strin[i];
+	tmp.strin[tmp.lengthString]='\0';
+	return tmp;
+}
+
+String String :: operator ++ (int) {
+	String tmp =*this;
+	lengthString++;
+	this->SetlengthString(lengthString);
+	return tmp;
+}
+
+String String :: operator -- (int) {
+	String tmp= *this;
+	lengthString--;
+	this->SetlengthString(lengthString);
+	return tmp;
+}
+
+String & String :: operator -- () {
+	--lengthString;
+	this->SetlengthString(lengthString);
+	return *this;
+}
+
+String & String :: operator ++ () {
+	++lengthString;
+	this->SetlengthString(lengthString);
+	return *this;
+}
+
+String & String::operator = (String & inStr)
+{
+	SetString(inStr.strin);
+	return *this;   
+}
+
+
+String::operator int()
+{
+	return lengthString;
+}
+
+ostream & operator << (ostream &out, String &obj)
+{
+	out << obj.lengthString << "<->" << obj.strin << endl;
+	return out;
+}
+istream& operator >> (istream &in, String &obj)
+{
+	int temp;
+	in >> temp;
+	if(temp<obj.lengthString && temp>0){
+		obj.lengthString=temp;
+		obj.SetlengthString(obj.lengthString);
+		return in;
+	}
+}
