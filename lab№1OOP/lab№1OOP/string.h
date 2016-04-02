@@ -26,6 +26,7 @@ public:
 	int static GetCountStringClone();
 	char* GetString();
 	int GetLenght();
+	void static View(int k, int pos, bool res,String &str1,String &str2, char *oper);
 	//-------------------------------//
 	bool operator == (String &strIn);
 	bool operator != (String &strIn);

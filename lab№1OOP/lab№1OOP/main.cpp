@@ -2,7 +2,8 @@
 #include <iomanip>
 void main()
 {
-	char strInp[255],position='9'; //строка для ввода и переменная для перемещения по меню
+	//строка для ввода и переменная для перемещения по меню
+	char strInp[255],position='9'; 
 	int countString=0,CountStringdefault=0, item=0; 
 	int CountStringMy=0, CountStringClone=0, lenghtString=0,k,count=0,i,j;
 	cout << setw(40) <<  "1-------Count all String----------" << endl;
@@ -144,7 +145,7 @@ void main()
 					cout <<String:: GetCountStringClone()<< endl;
 					cout << setw(40) <<  "----------All create string---->" ;
 					cout << String:: GetCount()<<endl;
-					cout << setw(40) <<  "any key--------next-------------" << endl;
+					cout << setw(40) <<  "press--any---key-for-next-------" << endl;
 					cout << setw(40) <<  "------------(0)exit-------------" << endl;
 					position=cin.get();
 					if(position=='0') break;
@@ -246,9 +247,9 @@ void main()
 							{
 								cin.clear();
 								cin.sync();
-								cout << setw(40) << "-------------------------"<<endl;
-								cout << setw(40) << "1----|==| |>| |<|--------"<<endl;
-								cout << setw(40) << "2----str[i]+str[j]-------"<<endl;
+								cout << setw(40) << "-------operations--------"<<endl;
+								cout << setw(40) << "1------ ==  >  < --------"<<endl;
+								cout << setw(40) << "2------str[i]+str[j]-----"<<endl;
 								cout << setw(40) << "3----(++/--str[i]++/--)--"<<endl;
 								cout << setw(40) << "4----|str[i]=str[j]|------"<<endl;
 								cout << setw(40) << "5------|(int)str[j]|------"<<endl;
@@ -268,46 +269,28 @@ void main()
 										cout << setw(40) << "-select pattern str[?] where k=";
 										cin>>k;
 										cout <<endl;
-										k=((int)k>(String::GetCount()-1))?(String::GetCount()):(int)k;
+										k=((int)k>(String::GetCount()-1))?(String::GetCount()-1):(int)k;
 										cout << setw(40) << "---- str[?] input i:=";
 										cin>>i;
 										cout <<endl;
-										i=((int)i>(String::GetCount()-1))?(String::GetCount()):(int)i;
+										i=((int)i>(String::GetCount()-1))?(String::GetCount()-1):(int)i;
 										cout << setw(40) << "---- str[?] input j:=";
 										cin>>j;
 										cout <<endl;
-										j=((int)j>(String::GetCount()-1))?(String::GetCount()):(int)j;
+										j=((int)j>(String::GetCount()-1))?(String::GetCount()-1):(int)j;
 										cin.ignore();
 										for(int pos=i; pos<=j; pos++)
 										{
-											cout << "------------------------------------------------------------------------"<<endl;
-											cout << "str[";cout << k; cout << "]";
-											cout << "  ==  ";cout << "str[";cout << pos; cout << "] | ";
-											cout << ((*str[k]==*str[pos])? "true  ": "false  ");
-											cout << (str[k]->GetString());cout << "  (";cout << str[k]->GetLenght();cout << ")   ==  ";
-											cout << str[pos]->GetString();cout << "  (";cout << str[pos]->GetLenght();cout << ")"<<endl;
-											cout << "------------------------------------------------------------------------"<<endl;
-											cout << "str[";cout << k; cout << "]";
-											cout << "  >  ";cout << "str[";cout << pos; cout << "] | ";
-											cout << ((str[k]->operator>(*str[pos]))? "  true  ": "  false  ");
-											cout << str[k]->GetString();cout << "  (";cout << str[k]->GetLenght();cout << ")   >  ";
-											cout << str[pos]->GetString();cout << "  (";cout << str[pos]->GetLenght();cout << ")"<<endl;
-											cout << "------------------------------------------------------------------------"<<endl;
-											cout << "str[";cout << k; cout << "]";
-											cout << "  <  ";cout << "str[";cout << pos; cout << "] | ";
-											cout << ((*str[k]<*str[pos])? "  true  ": "  false  ");
-											cout << str[k]->GetString();cout << "  (";cout << str[k]->GetLenght();cout << ")   <  ";
-											cout << str[pos]->GetString();cout << "  (";cout << str[pos]->GetLenght();cout << ")"<<endl;
-											cout << "------------------------------------------------------------------------"<<endl;
-											cout << "str[";cout << k; cout << "]";
-											cout << "  !=  ";cout << "str[";cout << pos; cout << "] | ";
-											cout << ((*str[k]!=*str[pos])? "  true  ": "  false  ");
-											cout << str[k]->GetString();cout << "  (";cout << str[k]->GetLenght();cout << ")   !=  ";
-											cout << str[pos]->GetString();cout << "  (";cout << str[pos]->GetLenght();cout << ")"<<endl;
-											cout << "------------------------------------------------------------------------"<<endl;
+											String::View(k,pos,(*str[k]==*str[pos]),*str[k],*str[pos]," == ");
+
+											String::View(k,pos,(str[k]->operator>(*str[pos])),*str[k],*str[pos]," > ");
+
+											String::View(k,pos,(*str[k]<*str[pos]),*str[k],*str[pos]," < ");
+
+											String::View(k,pos,(*str[k]!=*str[pos]),*str[k],*str[pos]," != ");
 
 										}
-
+										cout << "------------------------------------------------------------------------"<<endl;
 										cout << setw(40) << "---- q <-";
 										position=cin.get();
 									}
@@ -321,13 +304,12 @@ void main()
 										cout << setw(40) << "---- str[?] input i:=";
 										cin>>i;
 										cout <<endl;
-										i=((int)i>(String::GetCount()-1))?(String::GetCount()):(int)i;
+										i=((int)i>(String::GetCount()-1))?(String::GetCount()-1):(int)i;
 										cout << setw(40) << "---- str[?] input j:=";
 										cin>>j;
 										cout <<endl;
-										j=((int)j>(String::GetCount()-1))?(String::GetCount()):(int)j;
+										j=((int)j>(String::GetCount()-1))?(String::GetCount()-1):(int)j;
 										cin.ignore();
-
 										cout << "------------------------------------------------------------------------"<<endl;
 										cout << "str[";cout << i; cout << "]";
 										cout << "  +  ";cout << "str[";cout << j; cout << "] |  ";
@@ -341,96 +323,96 @@ void main()
 
 									break;
 								case '3': 
+									while(position!='9' && (String::GetCount()>0))
+								{
+									cin.clear();
+									cin.sync();
 									cin.ignore();
 									cout << setw(40) << "a--temp1=(str[i]++)-----------"<<endl;
 									cout << setw(40) << "b--temp1=(str[i]--)-----------"<<endl;
 									cout << setw(40) << "c--temp1=(--str[i])-----------"<<endl;
 									cout << setw(40) << "d--temp1=(++str[i])-----------"<<endl;
+									cout << setw(40) << "9--<<<<<<<<<<<<<<<<-----------"<<endl;
 									position=cin.get();
+									if(position=='a'|| position=='b'|| position=='c'|| position=='d') 
+									{
 									cout << setw(40) << "input i:";
 									cin>>k;
 									cout <<endl;
-									k=((int)k>(String::GetCount()-1))?(String::GetCount()):(int)k;
+									k=((int)k>(String::GetCount()-1))?(String::GetCount()-1):(int)k;
 
 									cout << "temp->Print()"<<endl;
 									if(position=='a') {
 										String temp1=(*str[k])++;
-										cout << temp1.GetString();
-										cout << "(  ";cout << temp1.GetLenght(); cout << ")"<<endl;
+										cout << temp1.GetString()<< "(  " << temp1.GetLenght()<< ")"<<endl;
 									}
 									if(position=='b') {
 										String temp1=(*str[k])--;
-										cout << temp1.GetString();
-										cout << "(  ";cout << temp1.GetLenght(); cout << ")"<<endl;
+										cout << temp1.GetString()<< "(  " << temp1.GetLenght() << ")"<<endl;
 									}
 									if(position=='c') {
 										String temp1=--(*str[k]);
-										cout << temp1.GetString();
-										cout << "(  ";cout << temp1.GetLenght(); cout << ")"<<endl;
+										cout << temp1.GetString()<< "(  "<< temp1.GetLenght() << ")"<<endl;
 									}
 									if(position=='d') {
 										String temp1=++(*str[k]);
-										cout << temp1.GetString();
-										cout << "(  ";cout << temp1.GetLenght(); cout << ")"<<endl;
+										cout << temp1.GetString()<< "(  "<< temp1.GetLenght()<< ")"<<endl;
 									}
-									cout << "str[";cout << k; cout << "]->Print()"<<endl;
-									cout << (*str[k]).GetString();
-									cout << "(  ";cout << (*str[k]).GetLenght(); cout << ")"<<endl;
-
+									cout << "str[" << k << "]->Print()"<<endl;
+									cout << (*str[k]).GetString() << "(  " << (*str[k]).GetLenght() << ")"<<endl;
+									}
+									}
 									break;
 								case '4': 
 									cin.ignore();
-									cout << setw(40) << "4----|str[i]=str[j]|------"<<endl;
+									cout << setw(40) << "4----|str[i]=str[j]|------------"<<endl;
 									cout << setw(40) << "input i:";
 									cin>>i;
 									cout <<endl;
-									i=((int)i>(String::GetCount()-1))?(String::GetCount()):(int)i;
+									i=((int)i>(String::GetCount()-1))?(String::GetCount()-1):(int)i;
 									cout << setw(40) << "input j:";
 									cin>>j;
 									cout <<endl;
-									j=((int)j>(String::GetCount()-1))?(String::GetCount()):(int)j;
+									j=((int)j>(String::GetCount()-1))?(String::GetCount()-1):(int)j;
 									*str[i]=*str[j];
-									cout << "str[";cout << i; cout << "] = ";
-									cout << (*str[i]).GetString();
-									cout << "  (  ";cout << (*str[i]).GetLenght(); cout << ")"<<endl;
-									cout << "str[";cout << j; cout << "] = ";
-									cout << (*str[j]).GetString();
-									cout << "  (  ";cout << (*str[j]).GetLenght(); cout << ")"<<endl;
+									cout << "str[" << i << "] = "<< (*str[i]).GetString();
+									cout << "  (  " << (*str[i]).GetLenght()<< " ) "<<endl;
+									cout << "str[" << j<< "] = "<< (*str[j]).GetString();
+									cout << " (  "<< (*str[j]).GetLenght()<< " ) "<<endl;
 									break;
 								case '5': 
 									cin.ignore();
-									cout << setw(40) << "5------|(int)str[j]|------"<<endl;
+									cout << setw(40) << "5------|(int)str[j]|----"<<endl;
 									cout << setw(40) << "input j:";
 									cin>>j;
 									cout <<endl;
-									j=((int)j>(String::GetCount()-1))?(String::GetCount()):(int)j;
+									j=((int)j>(String::GetCount()-1))?(String::GetCount()-1):(int)j;
 
 									cout << "(int) str[";cout << j; cout << "] = ";
 									cout << (int)(*str[j])<<endl;
 									break;
 								case '6': 
 									cin.ignore();
-									cout << setw(40) << "5------|<<str[j]|------"<<endl;
+									cout << setw(40) << "6------|<<str[j]|------"<<endl;
 									cout << setw(40) << "input j:";
 									cin>>j;
 									cout <<endl;
 									j=((int)j>(String::GetCount()-1))?(String::GetCount()):(int)j;
-
-									cout << "<< str[";cout << j; cout << "] = ";
+									cout << "<< str[" << j << "] = ";
 									cout <<*str[j]<<endl;
 									break;
 								case '7': 
 									cin.ignore();
-									cout << setw(40) << "5----->>str[j]|------"<<endl;
+									cout << setw(40) << "7----->>str[j]|------"<<endl;
 									cout << setw(40) << "input j:";
 									cin>>j;
 									cout <<endl;
 									j=((int)j>(String::GetCount()-1))?(String::GetCount()):(int)j;
-									cout << ">> str[";cout << j; cout << "] = ";
+									cout << ">> str[" << j << "] = ";
 									cin>>*str[j];
-									cout << ">> str[";cout << j; cout << "] = ";
+									cout << ">> str[" << j << "] = ";
 									cout << (*str[j]).GetString();
-									cout << "  (  ";cout << (*str[j]).GetLenght(); cout << ")"<<endl;
+									cout << "  (  "<< (*str[j]).GetLenght() << ")"<<endl;
 									break;
 
 								}
@@ -455,9 +437,9 @@ void main()
 		cin.ignore();
 		cout<<count;
 		cin.ignore();
-		
-		
-		if(count>0)//высвобождение занимаемой памяти
+
+		//высвобождение занимаемой памяти
+		if(count>0)
 		{
 
 			for(int i=0; i<count; i++){
@@ -469,6 +451,6 @@ void main()
 		}
 	}
 
-cin.get();
+	cin.get();
 
 }

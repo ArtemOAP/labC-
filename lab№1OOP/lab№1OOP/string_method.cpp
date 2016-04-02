@@ -40,7 +40,7 @@ String::~String()
 {
 	CountString--;
 	delete  [] strin;
-	
+
 
 }
 
@@ -57,7 +57,7 @@ void String::SetString(const char *strIn)
 	this->lengthString = strlen(strIn);
 	this->strin = new char[lengthString+1];
 	strcpy(strin,strIn);
-	
+
 }
 
 
@@ -69,8 +69,8 @@ void String::SetlengthString(int length)
 	{
 		lengthString= length;
 		this->tempStr = new char[lengthString+1];
-
-		for(int i=0; i< lengthString;i++)//реализуется копирование части строки
+		//реализуется копирование части строки
+		for(int i=0; i< lengthString;i++)
 		{
 			tempStr[i]=strin[i];
 		}
@@ -84,8 +84,8 @@ void String::SetlengthString(int length)
 	{
 		lengthString= length;
 		this->tempStr = new char[lengthString+1];
-
-		for(int i=0; i< len;i++)//реализуется копирование части строки
+		//реализуется копирование части строки
+		for(int i=0; i< len;i++)
 		{
 			tempStr[i]=strin[i];
 		}
@@ -216,4 +216,14 @@ istream& operator >> (istream &in, String &obj)
 		obj.SetlengthString(obj.lengthString);
 		return in;
 	}
+}
+
+void String:: View(int k, int pos, bool res,String &str1,String &str2, char *oper ) 
+{
+	cout << "---------------------------------------------------------------------------"<<endl;
+	cout << "str[" << k << "]" << oper<< "str[";cout << pos; cout << "] | ";
+	cout << (res? "true  ": "false  ");
+	cout << (str1.GetString()) << "  (" << str1.GetLenght();cout << ")" << oper;
+	cout << str2.GetString() << "  (" << str2.GetLenght()<< ")"<<endl;
+
 }
