@@ -90,8 +90,7 @@ void main()
 						}
 						count=0;
 						CountStringMy=0;
-						cout << setw(40) <<  "--------- all My! ="; 
-						cout << String:: GetCountStringMy();
+						cout << setw(40) <<  "--------- all My! ="<< String:: GetCountStringMy();
 						cout<<endl;
 					}
 					cin.clear();
@@ -235,9 +234,7 @@ void main()
 							k=String::GetCount();
 							for(int i=0; i<k; i++)
 							{
-								cout << setw(40) << "-------------str[";
-								cout << i ;
-								cout <<"]"<<endl;
+								cout << setw(40) << "-------------str["<< i<<"]"<<endl;
 								str[i]->Print();
 								cout << setw(40) << "-------------------------"<<endl;
 							}
@@ -247,16 +244,16 @@ void main()
 							{
 								cin.clear();
 								cin.sync();
-								cout << setw(40) << "-------operations--------"<<endl;
-								cout << setw(40) << "1------ ==  >  < --------"<<endl;
-								cout << setw(40) << "2------str[i]+str[j]-----"<<endl;
-								cout << setw(40) << "3----(++/--str[i]++/--)--"<<endl;
-								cout << setw(40) << "4----|str[i]=str[j]|------"<<endl;
-								cout << setw(40) << "5------|(int)str[j]|------"<<endl;
-								cout << setw(40) << "6------|<<str[j]|---------"<<endl;
-								cout << setw(40) << "7------|>>str[j]|---------"<<endl;
-								cout << setw(40) <<  "-----------(0)exit-----" << endl;
-								cout << setw(40) <<  "<--------------------9-" << endl;
+								cout << setw(40) <<"-------operations--------"<<endl;
+								cout << setw(40) <<"1------ ==  >  < --------"<<endl;
+								cout << setw(40) <<"2------str[i]+str[j]-----"<<endl;
+								cout << setw(40) <<"3----(++/--str[i]++/--)--"<<endl;
+								cout << setw(40) <<"4----|str[i]=str[j]|-----"<<endl;
+								cout << setw(40) <<"5------|(int)str[j]|-----"<<endl;
+								cout << setw(40) <<"6------|<<str[j]|--------"<<endl;
+								cout << setw(40) <<"7------|>>str[j]|--------"<<endl;
+								cout << setw(40) << "-----------(0)exit------"<< endl;
+								cout << setw(40) << "<-----------9-----------"<< endl;
 								position=cin.get();
 								if(position=='0') break;
 								cin.clear();
@@ -311,10 +308,10 @@ void main()
 										j=((int)j>(String::GetCount()-1))?(String::GetCount()-1):(int)j;
 										cin.ignore();
 										cout << "------------------------------------------------------------------------"<<endl;
-										cout << "str[";cout << i; cout << "]";
-										cout << "  +  ";cout << "str[";cout << j; cout << "] |  ";
+										cout << "str[" << i << "]";
+										cout << "  +  "<< "str[" << j << "] |  ";
 										cout << (*str[i]+*str[j]).GetString();
-										cout << "(  ";cout << (*str[i]+*str[j]).GetLenght(); cout << ")"<<endl;
+										cout << "(  " << (*str[i]+*str[j]).GetLenght() << ")"<<endl;
 										cout << "------------------------------------------------------------------------"<<endl;
 
 										cout << setw(40) << "---- q <-";
@@ -323,7 +320,7 @@ void main()
 
 									break;
 								case '3': 
-									while(position!='9' && (String::GetCount()>0))
+									while(position!='1' && (String::GetCount()>0))
 								{
 									cin.clear();
 									cin.sync();
@@ -332,7 +329,7 @@ void main()
 									cout << setw(40) << "b--temp1=(str[i]--)-----------"<<endl;
 									cout << setw(40) << "c--temp1=(--str[i])-----------"<<endl;
 									cout << setw(40) << "d--temp1=(++str[i])-----------"<<endl;
-									cout << setw(40) << "9--<<<<<<<<<<<<<<<<-----------"<<endl;
+									cout << setw(40) << "1--<<<<<<<<<<<<<<<<-----------"<<endl;
 									position=cin.get();
 									if(position=='a'|| position=='b'|| position=='c'|| position=='d') 
 									{
@@ -409,10 +406,10 @@ void main()
 									cout <<endl;
 									j=((int)j>(String::GetCount()-1))?(String::GetCount()):(int)j;
 									cout << ">> str[" << j << "] = ";
+									cin.ignore();
 									cin>>*str[j];
 									cout << ">> str[" << j << "] = ";
-									cout << (*str[j]).GetString();
-									cout << "  (  "<< (*str[j]).GetLenght() << ")"<<endl;
+									cout << (*str[j]).GetString()<< "  (  "<< (*str[j]).GetLenght() << ")"<<endl;
 									break;
 
 								}

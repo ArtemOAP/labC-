@@ -7,6 +7,7 @@ class String
 	int lengthString;
 	char *strin;
 	char *tempStr;
+	char construct;
 	static int CountString;
 	static int CountStringMy;
 	static int CountStringDefault;
