@@ -106,9 +106,6 @@ void String::SetlengthString(int length)
 		strin=tempStr;
 		tempStr=NULL;
 	}
-
-
-
 }
 
 int  String::GetCount()
@@ -138,100 +135,7 @@ int String:: GetLenght(){
 	return lengthString;
 }
 
-//-строки равны если равны их длины------------------
-bool String::operator == (String &strIn)
-{
-	if(lengthString == strIn.lengthString )
-		return true;
-	else
-		return false;
-}
-//объекты являются не равными если операция == вернет false
-bool String::operator != (String &strIn)
-{
-	return !( *this == strIn ); 
-}
-//реализует сравнение строк---
-bool String::operator < (String &strIn)
-{
-	return ((lengthString < strIn.lengthString) && (strlen(strin) <strlen(strIn.strin))); 
-}
-//true если только операция == false < false
-bool String::operator > (String &strIn)
-{
-	return !( (*this < strIn) || ( *this == strIn ) ); 
 
-}
-// реализуется конкатенация строк
-String String ::operator + (String &strIn)
-{
-	String tmp;
-	tmp.lengthString = lengthString + strIn.lengthString;
-	tmp.strin=new char [tmp.lengthString+1];
-	for(int i=0; strin[i]!='\0';i++)
-		tmp.strin[i] =strin[i];
-	for(int i=0; strIn.strin[i]!='\0';i++)
-		tmp.strin[lengthString + i] =strIn.strin[i];
-	tmp.strin[tmp.lengthString]='\0';
-	return tmp;
-}
-// увеличение длины строки, и заполнение строку ‘*’- символом. 
-//Возвращает новый статический объект!
-String String :: operator ++ (int) {
-	String tmp =*this;
-	lengthString++;
-	this->SetlengthString(lengthString);
-	return tmp;
-}
-// уменьшает длину строки. 
-//Возвращает новый статический объект!
-String String :: operator -- (int) {
-	String tmp= *this;
-	lengthString--;
-	this->SetlengthString(lengthString);
-	return tmp;
-}
-// уменьшает длину строки. 
-//Возвращает ссылку на объект!
-String & String :: operator -- () {
-	--lengthString;
-	this->SetlengthString(lengthString);
-	return *this;
-}
-// увеличивает длину строки. 
-//Возвращает ссылку на объект!
-String & String :: operator ++ () {
-	++lengthString;
-	this->SetlengthString(lengthString);
-	return *this;
-}
-//реализует изменение сущ. строки
-String & String::operator = (String & inStr)
-{
-	SetString(inStr.strin);
-	return *this;   
-}
-
-//вернет длину строки
-String::operator int()
-{
-	return lengthString;
-}
-//реализует вывод сущ. строки
-ostream & operator << (ostream &out, String &obj)
-{
-	out << obj.lengthString << "<->" << obj.strin << endl;
-	return out;
-}
-//реализует изменение сущ. строки
-istream & operator >> (istream &in, String &obj)
-{
-	char temp[255];
-	in.getline(temp,255);
-	obj.SetString(temp);
-	return in;
-
-}
 // шаблон
 void String:: View(int k, int pos, bool res,String &str1,String &str2, char *oper ) 
 {

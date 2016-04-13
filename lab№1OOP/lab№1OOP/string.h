@@ -2,7 +2,19 @@
 #include <iostream>
 using namespace std;
 
-class String
+class AbstractString
+{
+public:
+	virtual void Print()=0;
+	virtual  void SetlengthString(int)=0;
+	virtual  void SetString(const char)=0;
+	virtual ~AbstractString(){};
+};
+
+
+
+
+class String : public AbstractString
 {
 	int lengthString;
 	char *strin;
@@ -18,9 +30,9 @@ public:
 	String(const char *str);
 	String(const String &t);
 	virtual ~String();
-	void Print();
-	void SetlengthString(int);
-	void SetString(const char *strIn);
+	virtual void Print();
+	virtual void SetlengthString(int);
+	virtual void SetString(const char *strIn);
 	int static GetCount();
 	int static GetCountStringMy();
 	int static GetCountStringDefault();
@@ -29,19 +41,7 @@ public:
 	int GetLenght();
 	void static View(int k, int pos, bool res,String &str1,String &str2, char *oper);
 	//-------------------------------//
-	bool operator == (String &strIn);
-	bool operator != (String &strIn);
-	bool operator < (String &strIn);
-	bool operator > (String &strIn);
-	String operator + (String &strIn);
-	String operator ++ (int);
-	String & operator ++ ();
-	String & operator -- ();
-	String  operator -- (int);
-	String & operator = (String & inStr);
-	operator int();
-	friend ostream& operator << (ostream &out, String &obj);
-	friend istream& operator >> (istream &in, String &obj);
+	
 };
 //---------------------------------------------//
 
