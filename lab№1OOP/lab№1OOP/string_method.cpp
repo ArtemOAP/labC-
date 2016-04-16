@@ -47,7 +47,7 @@ String::~String()
 {
 	size--;
 	cout<<"String delete!"<<endl;
-	// контрол числа объектов
+	// контроль числа объектов
 	if(construct=='D')
 		CountStringDefault--;
 	if(construct=='P')
@@ -64,7 +64,7 @@ void String::show()
 	cout << "size=" << size << endl;
 	for (int i = 0; i < size; i++)
 	{
-		cout <<"№"<< i+1 << "->";
+		cout <<"["<< i+1 <<"] "<<"->";
 		AbString[i]->Print();
 	}
 }
@@ -82,11 +82,7 @@ void String::SetString(const char *strIn)
 	this->lengthString = strlen(strIn);
 	this->strin = new char[lengthString+1];
 	strcpy(strin,strIn);
-
 }
-
-
-
 
 void String::SetlengthString(int length)
 { 
@@ -136,7 +132,6 @@ int String:: GetLenght(){
 //реализует перераспределение памяти
 void String::del(int n)
 {
-
 	if((n>=0) && (n< GetSize()))
 	{
 		AbstractString** NewsAbString=new AbstractString* [size-1];
@@ -151,10 +146,7 @@ void String::del(int n)
 		AbString=NULL;
 		AbString=NewsAbString;
 		NewsAbString=NULL;
-		
 	}
-
-
 }
 
 void String::Add(AbstractString* AbStr)
@@ -206,7 +198,7 @@ void String::delAll()
 		int count=size;
 		for(int i=0; i<count;i++)
 			//вызов деструктора для каждого
-			delete AbString[i];
+				delete AbString[i];
 		//очистка массива указателей
 		delete [] AbString;
 		AbString=NULL;

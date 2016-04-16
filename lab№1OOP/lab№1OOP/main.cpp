@@ -13,7 +13,6 @@ void main()
 		cin.clear();
 		cin.sync();
 		cout<<endl;
-		cout<<String::GetCountStringDefault()<< endl;
 		cout << "-------------menu--------------:" << endl;
 		cout << "1---add String default----------" << endl;
 		cout << "2---add New String--------------" << endl;
