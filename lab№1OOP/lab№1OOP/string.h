@@ -7,8 +7,10 @@ class AbstractString
 public:
 	virtual void Print()=0;
 	virtual  void SetlengthString(int)=0;
-	virtual  void SetString(const char)=0;
-	virtual ~AbstractString(){};
+	virtual  void SetString(const char *strIn)=0;
+	virtual ~AbstractString(){
+	cout<<"memory clear"<<endl;
+	};
 };
 
 class String : public AbstractString
@@ -31,12 +33,18 @@ public:
 	virtual void Print();
 	virtual void SetlengthString(int);
 	virtual void SetString(const char *strIn);
+	static AbstractString* GetStringAbstr(int i);
+	static void AddStringDefault();
+	static void AddMyString(const char *str);
+	static void AddClone(const String &t);
+	static void delAll();
 
 	static void show();
 	static void del(int n);
 	int static GetCountStringMy();
 	int static GetCountStringDefault();
 	int static GetCountStringClone();
+	int static GetSize();
 	char* GetString();
 	int GetLenght();
 	void static View(int k, int pos, bool res,String &str1,String &str2, char *oper);

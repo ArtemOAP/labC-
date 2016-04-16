@@ -1,7 +1,7 @@
 //---------------string_method.cpp-----------------
 #include "string.h"
 int String::size=0;
-AbstractString** String::AbString=0;
+AbstractString** String::AbString=NULL;
 int String::CountStringDefault=0;
 int String::CountStringClone=0;
 int String::CountStringMy=0;
@@ -45,25 +45,8 @@ String::String(const String &t)
 
 String::~String()
 {
-	if (size == 1)
-	{
-		//	delete this;
-		if (AbString != NULL)
-			delete AbString;
-		AbString = NULL;
-		size--;
-	}
-	if (size - 1 > 0)
-	{
-		AbstractString** NewsAbString=new AbstractString* [size-1];
-		for (int i = 0, j = 0; i < size; i++)
-			if (AbString[i] != this)
-				NewsAbString[j++] = AbString[i];
-		delete[] AbString;
-		AbString = NewsAbString;
-		size--;
-	}
-
+	size--;
+	cout<<"String delete!"<<endl;
 	// контрол числа объектов
 	if(construct=='D')
 		CountStringDefault--;
@@ -76,13 +59,15 @@ String::~String()
 }
 
 void String::show()
+{    if(size>0)
 {
 	cout << "size=" << size << endl;
 	for (int i = 0; i < size; i++)
 	{
-		cout <<"№"<< i << "->";
+		cout <<"№"<< i+1 << "->";
 		AbString[i]->Print();
 	}
+}
 }
 
 void String::Print()
@@ -122,22 +107,6 @@ void String::SetlengthString(int length)
 		strin=tempStr;
 		tempStr=NULL;
 	}	
-	if(length==len+1)
-	{
-		lengthString= length;
-		this->tempStr = new char[lengthString+1];
-		//реализуется копирование части строки
-		for(int i=0; i< len;i++)
-		{
-			tempStr[i]=strin[i];
-		}
-		tempStr[len]='*';
-		tempStr[lengthString]='\0';
-		delete  [] strin;
-		strin=NULL;
-		strin=tempStr;
-		tempStr=NULL;
-	}
 }
 
 
@@ -164,11 +133,28 @@ int String:: GetLenght(){
 	return lengthString;
 }
 
-
+//реализует перераспределение памяти
 void String::del(int n)
 {
-	if(n>=0 && n<size)
+
+	if((n>=0) && (n< GetSize()))
+	{
+		AbstractString** NewsAbString=new AbstractString* [size-1];
+		int count=size;
+		for(int i=0; i<n;i++)
+			NewsAbString[i] = AbString[i];
+		for(int i=n; i<count-1;i++)
+			NewsAbString[i] = AbString[i+1];
+		//вызов деструктора
 		delete AbString[n];
+		delete [] AbString;
+		AbString=NULL;
+		AbString=NewsAbString;
+		NewsAbString=NULL;
+		
+	}
+
+
 }
 
 void String::Add(AbstractString* AbStr)
@@ -177,9 +163,52 @@ void String::Add(AbstractString* AbStr)
 	AbstractString** NewsAbString=new AbstractString* [size+1];
 	for (int i = 0; i < size; i++)
 		NewsAbString[i] = AbString[i];
-	NewsAbString[size++] = AbStr;
+	NewsAbString[size] = AbStr;
 	if (AbString != NULL)
 		delete[] AbString;
 	AbString = NewsAbString;
+	size++;
 
+}
+
+int String:: GetSize()
+{
+	return size;
+}
+
+AbstractString* String::GetStringAbstr(int i)
+{
+	return AbString[i];
+}
+
+
+void String::AddStringDefault()
+{
+	AbstractString* temp= new String();
+	temp->Print();
+	cout<< "create string Default number=";
+	cout<< GetSize()<<endl;
+
+}
+
+void String::AddMyString(const char *str)
+{
+	AbstractString* temp=new String(str);
+	temp->Print();
+	cout<< "create string  number= ";
+	cout<< GetSize()<<endl;
+}
+
+void String::delAll()
+{
+	if(size>0)
+	{
+		int count=size;
+		for(int i=0; i<count;i++)
+			//вызов деструктора для каждого
+			delete AbString[i];
+		//очистка массива указателей
+		delete [] AbString;
+		AbString=NULL;
+	}
 }
