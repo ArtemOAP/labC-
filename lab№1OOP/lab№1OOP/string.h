@@ -22,8 +22,10 @@ class String : public AbstractString
 	static int CountStringMy;
 	static int CountStringDefault;
 	static int CountStringClone;
+	static int CountString;
 	static AbstractString** AbString;
-	void static  Add(AbstractString*);
+	void static  Add(String &Str);
+	void static  Remove(String &Str);
 	 static int size;
 	String();
 	String(const char *str);
@@ -41,6 +43,7 @@ public:
 	static void del(int n);
 
 	int static GetCountStringMy();
+	int static GetCountString();
 	int static GetCountStringDefault();
 	int static GetCountStringClone();
 	int static GetSize();

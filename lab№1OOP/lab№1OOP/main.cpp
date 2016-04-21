@@ -1,3 +1,4 @@
+//---------------main.cpp-----------------
 #include "string.h"
 #include <iomanip>
 void main()
@@ -6,7 +7,7 @@ void main()
 	AbstractString* temp;
 	char strInp[255],position='9'; 
 	int i;
-	int countString=0,CountStringdefault=0,count=0,k;
+	int countString=0,CountStringdefault=0,count=0;
 
 	while (c != '0')
 	{
@@ -36,12 +37,12 @@ void main()
 			String::AddMyString(strInp);
 			break;
 		case '3':
-			if(String::GetSize()==0)
+			if(String::GetCountString()==0)
 				break;
 			cout <<"Input nuber String=";
 			cin>>i;
 			i=(int)i;
-			if(i<1 || i>String::GetSize())
+			if(i<1 || i>String::GetCountString())
 				break;
 			temp=String::GetStringAbstr(i-1);
 			cin.ignore();
@@ -52,12 +53,12 @@ void main()
 
 			break;
 		case '4':
-			if(String::GetSize()==0)
+			if(String::GetCountString()==0)
 				break;
 			cout <<"Input nuber String=";
 			cin>>i;
 			i=(int)i;
-			if(i<1 || i>String::GetSize())
+			if(i<1 || i>String::GetCountString())
 				break;
 			temp=String::GetStringAbstr(i-1);
 			cout <<"Input lenght=";
@@ -70,16 +71,16 @@ void main()
 			break;
 
 		case '5':
-			if(String::GetSize()==0)
+			if(String::GetCountString()==0)
 				break;
 			cout << "Number delete string= ";
 			cin >> i;
 			i=(int)i;
-			if(i>0 && i<=String::GetSize())
+			if(i>0 && i<=String::GetCountString())
 				String::del(i-1);
 			break;
 		case '6':
-			if(String::GetSize()==0)
+			if(String::GetCountString()==0)
 				break;
 			String::show();
 			break;
