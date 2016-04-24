@@ -1,7 +1,5 @@
 //---------------string_method.cpp-----------------
 #include "string.h"
-int String::size=0;
-AbstractString** String::AbString=NULL;
 int String::CountStringDefault=0;
 int String::CountStringClone=0;
 int String::CountStringMy=0;
@@ -15,7 +13,6 @@ String::String()
 	strcpy(strin,"String default");
 	tempStr=NULL;
 	construct='D';
-	String::Add(this);
 }
 
 String::String(const char *s)
@@ -26,9 +23,7 @@ String::String(const char *s)
 	this->strin = new char[lengthString+1];
 	strcpy(strin,s);
 	tempStr=NULL;
-	construct='P';
-	String::Add(this);
-
+	construct='P';	
 }
 
 String::String(const String &t)
@@ -40,12 +35,12 @@ String::String(const String &t)
 	strcpy(strin,t.strin);
 	tempStr=NULL;
 	construct='C';
-	String::Add(this);
+	
 }
 
 String::~String()
 {
-	size--;
+	
 	cout<<"String delete!"<<endl;
 	// контроль числа объектов
 	if(construct=='D')
@@ -56,18 +51,6 @@ String::~String()
 		CountStringClone--;
 
 	delete  [] strin;
-}
-
-void String::show()
-{    if(size>0)
-{
-	cout << "size=" << size << endl;
-	for (int i = 0; i < size; i++)
-	{
-		cout <<"["<< i+1 <<"] "<<"->";
-		AbString[i]->Print();
-	}
-}
 }
 
 void String::Print()
@@ -129,78 +112,23 @@ int String:: GetLenght(){
 	return lengthString;
 }
 
-//реализует перераспределение памяти
-void String::del(int n)
+ostream & operator << (ostream &out, String &obj)
 {
-	if((n>=0) && (n< GetSize()))
-	{
-		AbstractString** NewsAbString=new AbstractString* [size-1];
-		int count=size;
-		for(int i=0; i<n;i++)
-			NewsAbString[i] = AbString[i];
-		for(int i=n; i<count-1;i++)
-			NewsAbString[i] = AbString[i+1];
-		//вызов деструктора
-		delete AbString[n];
-		delete [] AbString;
-		AbString=NULL;
-		AbString=NewsAbString;
-		NewsAbString=NULL;
-	}
+	out << obj.lengthString << "<->" << obj.strin << endl;
+	return out;
 }
 
-void String::Add(AbstractString* AbStr)
+istream & operator >> (istream &in, String &obj)
 {
-	//реализуем создание (добавление) указателей на объект базового класса
-	AbstractString** NewsAbString=new AbstractString* [size+1];
-	for (int i = 0; i < size; i++)
-		NewsAbString[i] = AbString[i];
-	NewsAbString[size] = AbStr;
-	if (AbString != NULL)
-		delete[] AbString;
-	AbString = NewsAbString;
-	size++;
+	char temp[255];
+	in.getline(temp,255);
+	obj.SetString(temp);
+	return in;
 
 }
-
-int String:: GetSize()
+String * String::Create()
 {
-	return size;
-}
-
-AbstractString* String::GetStringAbstr(int i)
-{
-	return AbString[i];
-}
+	return new String();
 
 
-void String::AddStringDefault()
-{
-	AbstractString* temp= new String();
-	temp->Print();
-	cout<< "create string Default number=";
-	cout<< GetSize()<<endl;
-
-}
-
-void String::AddMyString(const char *str)
-{
-	AbstractString* temp=new String(str);
-	temp->Print();
-	cout<< "create string  number= ";
-	cout<< GetSize()<<endl;
-}
-
-void String::delAll()
-{
-	if(size>0)
-	{
-		int count=size;
-		for(int i=0; i<count;i++)
-			//вызов деструктора для каждого
-				delete AbString[i];
-		//очистка массива указателей
-		delete [] AbString;
-		AbString=NULL;
-	}
 }

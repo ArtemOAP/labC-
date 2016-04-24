@@ -2,18 +2,8 @@
 #include <iostream>
 using namespace std;
 
-class AbstractString
-{	 
-public:
-	virtual void Print()=0;
-	virtual  void SetlengthString(int)=0;
-	virtual  void SetString(const char *strIn)=0;
-	virtual ~AbstractString(){
-	cout<<"memory clear"<<endl;
-	};
-};
 
-class String : public AbstractString
+class String 
 {
 	int lengthString;
 	char *strin;
@@ -22,30 +12,24 @@ class String : public AbstractString
 	static int CountStringMy;
 	static int CountStringDefault;
 	static int CountStringClone;
-	static AbstractString** AbString;
-	void static  Add(AbstractString*);
-	 static int size;
+
+public:
 	String();
 	String(const char *str);
 	String(const String &t);
-public:
 	virtual ~String();
-	virtual void Print();
-	virtual void SetlengthString(int);
-	virtual void SetString(const char *strIn);
-	static AbstractString* GetStringAbstr(int i);
-	static void AddStringDefault();
-	static void AddMyString(const char *str);
-	static void delAll();
-	static void show();
-	static void del(int n);
-
+	void Print();
+	void SetlengthString(int);
+	void SetString(const char *strIn);
 	int static GetCountStringMy();
 	int static GetCountStringDefault();
 	int static GetCountStringClone();
 	int static GetSize();
 	char* GetString();
 	int GetLenght();
+	friend ostream & operator << (ostream &out, String &obj);
+	friend istream & operator >> (istream &in, String &obj);
+	static String *  Create();
 };
 //---------------------------------------------//
 
