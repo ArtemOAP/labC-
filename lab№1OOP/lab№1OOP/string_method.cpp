@@ -129,6 +129,10 @@ istream & operator >> (istream &in, String &obj)
 String * String::Create()
 {
 	return new String();
+}
 
-
+String & String::operator = (String & inStr)
+{
+	SetString(inStr.strin);
+	return *this;   
 }

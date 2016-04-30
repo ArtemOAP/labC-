@@ -9,14 +9,33 @@ class ListString
 	{
 	public:
 		Type (entity);
-		ElemString *next;
-		ElemString  *prev;
+		ElemString *next;//на последний
+		ElemString  *prev;//на предыдущий
 		ElemString(Type &ent);
 	};
 
 	int count;
-	ElemString *first;
-	ElemString *last;
+	ElemString *first;//указатель на начало
+	ElemString *last;// указатель на конец
+	ElemString* getElementInPosition(int posit)
+	{
+	ElemString *elem;
+	if(posit <= count/2)
+	{
+		elem = first;
+		
+		for (int i = 1; i < posit; i++)
+			elem = elem->next;
+	}
+	if(posit>count/2)
+	{
+		elem = last;
+	for (int i = count; i > posit; i--)
+			elem = elem->prev;
+
+	} 
+	return elem;
+	}
 public:
 	ListString();
 	~ListString();
@@ -72,21 +91,18 @@ int ListString<Type>::AddElemString(Type &ent)
 }
 
 template <class Type>
-int ListString<Type>::AddElemString(Type &ent, int n)
+int ListString<Type>::AddElemString(Type &ent, int posit)
 {
-	if ((n <= 0) || (n > count))
-		return -1;
+	if ((posit <= 0) || (posit > count)) return NULL;
 	ElemString *temp = new ElemString(ent);
-	ElemString *elem = first;
-	for (int i = 1; i < n; i++)
-		elem = elem->next;
-	if (n == 1)
+	ElemString *elem=getElementInPosition(posit);
+	if (posit == 1)
 	{
 		elem->prev = temp;
 		temp->next = elem;
 		first = temp;
 	}
-	if ((n > 1) && (n <= count))
+	if ((posit > 1) && (posit <= count))
 	{
 		(elem->prev)->next = temp;
 		temp->prev = elem->prev;
@@ -94,37 +110,35 @@ int ListString<Type>::AddElemString(Type &ent, int n)
 		temp->next = elem;
 	}
 	count++;
-	return n;
+	return posit;
 }
 
 template <class Type>
-int ListString<Type>::DeleteElemString(int n)
+int ListString<Type>::DeleteElemString(int posit)
 {
-	if ((n <= 0) || (n > count))
-		return -1;
-	ElemString *del = first;
-	for (int i = 1; i < n; i++)
-		del = del->next;
+	if ((posit <= 0) || (posit > count)) return NULL;
+	ElemString *del=getElementInPosition(posit);
+
 	if (count == 1)
 		first = last = NULL;
-	if ((n == 1) && (count > 1))
+	if ((posit == 1) && (count > 1))
 	{
 		first = del->next;
 		(del->next)->prev = NULL;
 	}
-	if ((n == count) && (count > 1))
+	if ((posit == count) && (count > 1))
 	{
 		last = del->prev;
 		(del->prev)->next = NULL;
 	}
-	if ((n > 1) && (n < count))
+	if ((posit > 1) && (posit < count))
 	{
 		(del->prev)->next = del->next;
 		(del->next)->prev = del->prev;
 	}
 	delete del;
 	count--;
-	return n;
+	return posit;
 }
 
 template <class Type>
@@ -132,14 +146,14 @@ void ListString<Type>::ShowListString()
 {
 	if (count == 0)
 	{
-		cout << "in List not string!" << endl;
 		return;
 	}
-	ElemString *temp = first;
+	ElemString *elem  = first;
+
 	for (int i = 1; i <= count; i++)
 	{
-		cout << "[" << i << "] " << temp->entity << endl;
-		temp = temp->next;
+		cout << "[" << i << "] " << elem->entity << endl;
+		elem = elem->next;
 	}
 }
 
@@ -159,12 +173,11 @@ void ListString<Type>::ClearListString()
 	}	
 }
 
-template <class Type>
-Type * ListString<Type>::GetString(int n)
+template <class Type> 
+Type *  ListString<Type>::GetString(int posit)
 {
-	if ((n <= 0) || (n > count)) return NULL;
-	ElemString *temp = first;
-	for (int i = 1; i < n; i++)
-		temp = temp->next;
-	return &(temp->entity);
+	if ((posit <= 0) || (posit > count)) return NULL;
+	ElemString *elem=getElementInPosition(posit);
+	return &(elem->entity);
 }
+

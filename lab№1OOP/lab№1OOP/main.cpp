@@ -3,11 +3,13 @@
 #include <iomanip>
 void main()
 {
-	
-	String *p;
-	ListString<String> list;	
+
+	String p;
+	//int p=5;
+	//ListString<int> list;	
+	ListString<String> list;
 	int number, count;
-	char c = 0;
+	char c = 9;
 	while (c != '0')
 	{
 		cin.clear();
@@ -15,73 +17,66 @@ void main()
 		cout<<endl;
 		cout << "1. add new string in end list---------------" << endl;
 		cout << "2. add new string in position---------------" << endl;
-		cout << "3. del string-------------------------------" << endl;
-		cout << "4. show string------------------------------" << endl;
-		cout << "5. Clear  list------------------------------" << endl;
-		cout << "6. Show All String--------------------------" << endl;
+		cout << "3. show string------------------------------" << endl;
+		cout << "4. Show All String--------------------------" << endl;
+		cout << "5. del string-------------------------------" << endl;
+		cout << "6. Clear  list------------------------------" << endl;
 		cout << "0. exit-------------------------------------" << endl;
 		cin >> c;
 		switch (c)
 		{
-		case '0':NULL;
-			break;
-
 		case '1':
-			cout << "add new string in end list" << endl;
+			cout << "input string:" << endl;
 			cin.ignore();
-			p=String::Create();
-			cin >> *p;
-			count = list.AddElemString(*p);
-			cout << "Create [" << count << "] string " << *p << endl;
+			cin >> p;
+			count = list.AddElemString(p);
+			cout << "Create [" << count << "] string " << p << endl;
 			break;
-
 		case '2':
-			cout << "add new string in position" << endl;
 			cout << "input position: ";
 			cin >> number;
-			p=String::Create();
+			number = list.AddElemString(p,number);
+			if (number == NULL)
+			{
+				cout << "Error number undefined--------" << endl;
+				break;
+			}
+			cout << "input string: ";
 			cin.ignore();
-			cin >> *p;			
-			number = list.AddElemString(*p,number);
-			if (number == -1)
+			cin >> p;			
+			cout << "Create [" << count << "] string " << p << endl;
+			break;
+		case '3':
+			cout << "input position: ";
+			cin >> number;
+			if (list.GetString(number) == NULL)
 				cout << "Error number undefined--------" << endl;
 			else
-				cout << "Create [" << count << "] string " << *p << endl;
+				cout << "[" << number << "] " << *(list.GetString(number)) << endl;
 			break;
-
-		case '3':
-			cout << "3. del string-------------------------------" << endl;
-			cout << "input position: ";
+		case '4':
+			cout << "All String:{" << endl;
+			list.ShowListString();
+			cout << "}---------------------" << endl;
+			break;
+		case '5':
+			cout << "input position for delete: ";
 			cin >> number;
 			number = list.DeleteElemString(number);
-			if (number == -1)
-				cout << "Error number undefined--------" << endl;
+			if (number == NULL)
+				cout << "Error number undefined!" << endl;
 			else
-				cout << "del " << number << "string!" << endl;
+				cout << "del {" << number << "} string!" << endl;
 			break;
-
-		case '4':
-			cout << "4. show string------------------------------" << endl;
-			cout << "input position: ";
-			cin >> number;
-			p = list.GetString(number);
-			if (p == NULL)
-				cout << "Error number undefined--------" << endl;
-			else
-				cout << "[" << number << "] " << *p << endl;
-			break;
-
-		case '5':
-			cout << "5. Clear  list------------------------------" << endl;
-			list.ClearListString();
-			cout << "list clear!-----------------" << endl;
-			break;
-		
 		case '6':
-			cout << "6. Show All String--------------------------" << endl;
-			list.ShowListString();
+			cout << "\n Clear  list!" << endl;
+			list.ClearListString();
+			cout << "\nlist clear!------" << endl;
+			break;
+		case '0':list.ClearListString();
 			break;
 		}
+
 	}
 
 }
