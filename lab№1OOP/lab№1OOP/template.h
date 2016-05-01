@@ -9,14 +9,15 @@ class ListString
 	{
 	public:
 		Type (entity);
-		ElemString *next;//на последний
+		ElemString *next;//на следующий
 		ElemString  *prev;//на предыдущий
 		ElemString(Type &ent);
 	};
 
 	int count;
-	ElemString *first;//указатель на начало
-	ElemString *last;// указатель на конец
+	ElemString *first;//указатель на начало списка
+	ElemString *last;// указатель на конец списка
+	//метод класса для получения указателя на элемент в заданной позиции
 	ElemString* getElementInPosition(int posit)
 	{
 	ElemString *elem;
@@ -61,19 +62,19 @@ ListString<Type>::ListString()
 	count = 0;
 	first = last = NULL;
 }
-
+//деструктор класса список
 template <class Type>
 ListString<Type>::~ListString()
 {
 	ClearListString();
 }
-
+//количество элементов списка
 template <class Type>
 int ListString<Type>::getCount()
 {
 	return count;
 }
-
+// добавление  элемента списка в конец списка
 template <class Type>
 int ListString<Type>::AddElemString(Type &ent)
 {
@@ -89,13 +90,15 @@ int ListString<Type>::AddElemString(Type &ent)
 	count++;
 	return count;
 }
-
+// добавление  элемента списка на заданную позицию
 template <class Type>
 int ListString<Type>::AddElemString(Type &ent, int posit)
 {
-	if ((posit <= 0) || (posit > count)) return NULL;
+	if ((posit <= 0) || (posit > count)) {return NULL;}
 	ElemString *temp = new ElemString(ent);
 	ElemString *elem=getElementInPosition(posit);
+	
+
 	if (posit == 1)
 	{
 		elem->prev = temp;
@@ -112,7 +115,7 @@ int ListString<Type>::AddElemString(Type &ent, int posit)
 	count++;
 	return posit;
 }
-
+// удаление заданого элемента списка 
 template <class Type>
 int ListString<Type>::DeleteElemString(int posit)
 {
@@ -140,7 +143,7 @@ int ListString<Type>::DeleteElemString(int posit)
 	count--;
 	return posit;
 }
-
+// последовательный вывод элементов списка
 template <class Type>
 void ListString<Type>::ShowListString()
 {
@@ -156,7 +159,7 @@ void ListString<Type>::ShowListString()
 		elem = elem->next;
 	}
 }
-
+// очищает список элементов (у объектов вызывает деструктор)
 template <class Type>
 void ListString<Type>::ClearListString()
 {
@@ -172,7 +175,8 @@ void ListString<Type>::ClearListString()
 		count = 0;
 	}	
 }
-
+// метод для получения указателя на объект(или другово типа)
+//в заданной позиции хранимого в классе элемент
 template <class Type> 
 Type *  ListString<Type>::GetString(int posit)
 {

@@ -4,10 +4,10 @@
 void main()
 {
 
-	String p;
-	//int p=5;
-	//ListString<int> list;	
-	ListString<String> list;
+	//String p;
+	int p=5;
+	ListString<int> list;	
+	//ListString<String> list;
 	int number, count;
 	char c = 9;
 	while (c != '0')
@@ -35,16 +35,16 @@ void main()
 		case '2':
 			cout << "input position: ";
 			cin >> number;
-			number = list.AddElemString(p,number);
-			if (number == NULL)
+			if (number >list.getCount() || number<=0)
 			{
 				cout << "Error number undefined--------" << endl;
 				break;
 			}
-			cout << "input string: ";
 			cin.ignore();
-			cin >> p;			
-			cout << "Create [" << count << "] string " << p << endl;
+			cout << "input string: ";
+			cin >> p;
+			list.AddElemString(p,number);
+			cout << "Create [" << list.getCount() << "] string " << *(list.GetString(number)) << endl;
 			break;
 		case '3':
 			cout << "input position: ";

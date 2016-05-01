@@ -131,7 +131,7 @@ String * String::Create()
 	return new String();
 }
 
-String & String::operator = (String & inStr)
+String & String::operator = (const String & inStr)
 {
 	SetString(inStr.strin);
 	return *this;   

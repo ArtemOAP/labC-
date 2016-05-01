@@ -29,7 +29,7 @@ public:
 	int GetLenght();
 	friend ostream & operator << (ostream &out, String &obj);
 	friend istream & operator >> (istream &in, String &obj);
-	String & operator = (String & inStr);
+	String & operator = (const String & inStr);
 	static String *  Create();
 };
 //---------------------------------------------//
